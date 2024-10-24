@@ -1,67 +1,39 @@
-
-import {useState} from 'react'
-export default function App(){
-  
+import { useState } from "react";
+export default function App() {
   const [person, setPerson] = useState({
-    fristName: "Barbara",
+    firstName: "Barbara",
     lastName: "Hepworth",
     email: "shayan@gmail.com",
   });
 
-  function handleFirstNameChange(e) {
+  function handleChange(e) {
     setPerson({
       ...person,
-      fristName: e.target.value
-
+      [e.target.name]: e.target.value
     });
   }
 
-  function hanleLastNameChange(e){
-    setPerson({
-        ...person,
-        lastName: e.target.value
-    });
-  }
-  function handleEmailChange(e){
-    setPerson({
-        ...person,
-        email: e.target.value
-    });
-  }
-
-  return(
+  return (
     <>
-    <label>
-        First Name: 
-        <input 
-        value = {person.fristName} 
-        onChange = {handleFirstNameChange}
-        /> 
-    </label>
-    <label>
-        Last Name: 
-        <input 
-        value = {person.lastName} 
-        onChange = {hanleLastNameChange}
-        /> 
-    </label>
-    <label>
-        Email: 
-        <input 
-        value = {person.email} 
-        onChange = {handleEmailChange}
-        /> 
-    </label>
+      <label>
+        First Name:
+        <input name="firstName" value={person.firstName} onChange={handleChange} />
+      </label>
+      <label>
+        Last Name:
+        <input name = "lastName" value={person.lastName} onChange={handleChange} />
+      </label>
+      <label>
+        Email:
+        <input  name= "email" value={person.email} onChange={handleChange} />
+      </label>
 
-    <p>
-        <h1> {person.fristName} {'  '}  {person.lastName}</h1>
+      <p>
+        <h1>
+          {person.firstName} {"  "} {person.lastName}
+        </h1>
         <h2> {person.email}</h2>
-        
-
-    </p>
-    
+      </p>
     </>
   );
-
 }
-   
