@@ -1,38 +1,56 @@
 import { useState } from "react";
 export default function App() {
   const [person, setPerson] = useState({
-    firstName: "Barbara",
-    lastName: "Hepworth",
-    email: "shayan@gmail.com",
+    name: "Shayan",
+    artwork: {
+      title: "Blue Nana",
+      city: "Dhaka",
+    },
   });
 
   function handleChange(e) {
     setPerson({
       ...person,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
+    });
+  }
+  function handleArtwork(e) {
+    setPerson({
+      ...person,
+      artwork: {
+        ...person.artwork,
+        [e.target.name]: e.target.value,
+      },
     });
   }
 
   return (
     <>
       <label>
-        First Name:
-        <input name="firstName" value={person.firstName} onChange={handleChange} />
+        Name:
+        <input name="name" value={person.name} onChange={handleChange} />
       </label>
       <label>
-        Last Name:
-        <input name = "lastName" value={person.lastName} onChange={handleChange} />
+        Title:
+        <input
+          name="title"
+          value={person.artwork.title}
+          onChange={handleArtwork}
+        />
       </label>
       <label>
-        Email:
-        <input  name= "email" value={person.email} onChange={handleChange} />
+        City:
+        <input
+          name="city"
+          value={person.artwork.city}
+          onChange={handleArtwork}
+        />
       </label>
 
       <p>
-        <h1>
-          {person.firstName} {"  "} {person.lastName}
-        </h1>
-        <h2> {person.email}</h2>
+        <h3>{person.name}</h3> 
+        <h3>{person.artwork.title}</h3>
+        <h4> {person.artwork.city}</h4>
       </p>
     </>
   );
