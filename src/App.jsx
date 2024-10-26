@@ -47,11 +47,11 @@ export default function App() {
         />
       </label>
 
-      <p>
-        <h3>{person.name}</h3> 
+      
+        <h3>{person.name}</h3>
         <h3>{person.artwork.title}</h3>
         <h4> {person.artwork.city}</h4>
-      </p>
+      
     </>
   );
 }
