@@ -1,57 +1,32 @@
-import { useState } from "react";
-export default function App() {
-  const [person, setPerson] = useState({
-    name: "Shayan",
-    artwork: {
-      title: "Blue Nana",
-      city: "Dhaka",
-    },
-  });
+import {useState} from 'react';
+let nextId = 0;
 
-  function handleChange(e) {
-    setPerson({
-      ...person,
-      [e.target.name]: e.target.value,
-    });
-  }
-  function handleArtwork(e) {
-    setPerson({
-      ...person,
-      artwork: {
-        ...person.artwork,
-        [e.target.name]: e.target.value,
-      },
-    });
-  }
+export default function App(){
+  const [name,setName] = useState('');
+  const [artists,setArtists] = useState([]);
 
   return (
     <>
-      <label>
-        Name:
-        <input name="name" value={person.name} onChange={handleChange} />
-      </label>
-      <label>
-        Title:
-        <input
-          name="title"
-          value={person.artwork.title}
-          onChange={handleArtwork}
-        />
-      </label>
-      <label>
-        City:
-        <input
-          name="city"
-          value={person.artwork.city}
-          onChange={handleArtwork}
-        />
-      </label>
+      <h1>Inspiring Sculptors: </h1>
+      <input
+      value = {name}
+      onChange = { e => setName(e.target.value)}
+      /> 
 
-      
-        <h3>{person.name}</h3>
-        <h3>{person.artwork.title}</h3>
-        <h4> {person.artwork.city}</h4>
+      <button onClick = {() => {
+        setArtists([
+          ...artists,
+          {id: nextId++,name:name}
+        ])
+      }}> Add
+      </button>
+      <ul>
+        {artists.map(artists => (
+          <li key = {artists.id} > {artists.name}</li>
+        ))}
+      </ul>
       
     </>
   );
+
 }
