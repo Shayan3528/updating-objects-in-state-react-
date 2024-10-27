@@ -1,32 +1,45 @@
-import {useState} from 'react';
-let nextId = 0;
+import { useState } from 'react';
 
-export default function App(){
-  const [name,setName] = useState('');
-  const [artists,setArtists] = useState([]);
+let initialShapes = [
+  { id: 0, type: "circle", x: 50, y: 100 },
+  { id: 1, type: "square", x: 150, y: 100 },
+  { id: 2, type: "circle", x: 250, y: 100 }
+];
+
+export default function App() {
+  const [shapes, setShapes] = useState(initialShapes);
+  
+  function handleClick() {
+    const nextShapes = shapes.map(shape => {
+      if (shape.type === 'square') {
+        return shape;
+      } else {
+        return {
+          ...shape,
+          y: shape.y + 50,
+        };
+      }
+    });
+    setShapes(nextShapes);
+  }
 
   return (
     <>
-      <h1>Inspiring Sculptors: </h1>
-      <input
-      value = {name}
-      onChange = { e => setName(e.target.value)}
-      /> 
-
-      <button onClick = {() => {
-        setArtists([
-          ...artists,
-          {id: nextId++,name:name}
-        ])
-      }}> Add
-      </button>
-      <ul>
-        {artists.map(artists => (
-          <li key = {artists.id} > {artists.name}</li>
-        ))}
-      </ul>
-      
+      <button onClick={handleClick}>Move Circles Down!</button>
+      {shapes.map(shape => (
+        <div
+          key={shape.id}
+          style={{
+            background: "purple",
+            position: "absolute",
+            left: shape.x,
+            top: shape.y,
+            borderRadius: shape.type === "circle" ? "50%" : "",
+            width: 20,
+            height: 20,
+          }}
+        />
+      ))}
     </>
   );
-
 }
