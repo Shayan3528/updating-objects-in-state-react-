@@ -1,32 +1,39 @@
 import {useState} from 'react';
 
-let initialCounters = [0,0,0];
+let nextId = 3;
+
+const initialArtists = [
+  {id:0,name:'Shayan'},
+  {id:1,name:'papon'},
+  {id:2, name:'kishor'}
+];
 
 export default function App(){
-  const [counters,setCounter] = useState(initialCounters);
-  function handleIncrementClick(index){
-    const nextCounters  = counters.map((c,i)=> {
-      if(i===index){
-        return c+1;
-      } else{
-        return c;
-      }
-    });
-    setCounter(nextCounters);
-
+  const [name,setName] = useState('');
+  const [artists,setArtists]= useState(initialArtists);
+  function handleClick(){
+    const insertAt = 1;
+    const nextArtists = [
+      ...artists.slice(0,insertAt),
+      {id:nextId++, name:name},
+      ...artists.slice(insertAt)
+    ];
+    setArtists(nextArtists);
+    setName('');
   }
 
   return(
     <>
+      <input value= {name} onChange = {e=>setName(e.target.value)} />
+      <button onClick = {handleClick}> 
+        Insert
+      </button>
       <ul>
-        {counters.map((counter,i)=>(
-          <li key = {i}>
-            {counter}
-            <button onClick = {()=> {handleIncrementClick(i)}}> +1
-            </button>
-          </li>
+        {artists.map(artist => (
+          <li key = {artist.id}> {artist.name} </li>
         ))}
       </ul>
     </>
   )
 }
+
